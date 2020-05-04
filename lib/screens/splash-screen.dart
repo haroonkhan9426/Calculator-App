@@ -1,0 +1,62 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class SplashScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black26,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            //Logo container
+            Container(
+              padding: EdgeInsets.only(top: 10),
+              width: 120,
+              height: 120,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+              ),
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        _customSign('+'),
+                        SizedBox(width: 20),
+                        _customSign('-')
+                      ],
+                    ),
+                    Column(
+                      children: <Widget>[_customSign('+'), _customSign('-')],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Text(
+                'Calculator',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  _customSign(String text) {
+    return Text(
+      text,
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+    );
+  }
+}
