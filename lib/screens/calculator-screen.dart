@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdgsession2/constants/colors.dart';
 
 class CalculatorScreen extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: customLightGreyColor,
       body: Padding(
         padding: const EdgeInsets.only(top: 100),
         child: Column(
@@ -32,7 +33,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     return Text(
       '4',
       style: TextStyle(
-          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 50),
+          color: customWhiteColor, fontWeight: FontWeight.bold, fontSize: 50),
     );
   }
 
@@ -40,7 +41,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     return Text(
       '4 + 30',
       style: TextStyle(
-          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
+          color: customWhiteColor, fontWeight: FontWeight.bold, fontSize: 25),
     );
   }
 
@@ -52,7 +53,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-          color: Colors.blueGrey[800],
+          color: customDarkGreyColor,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -120,7 +121,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           style: TextStyle(
               color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
         ),
-        color: Colors.black,
+        color: customLightGreyColor,
         shape: CircleBorder(),
         onPressed: onPressed,
       ),
