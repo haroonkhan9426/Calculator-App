@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gdgsession2/constants/colors.dart';
@@ -9,6 +11,7 @@ class CalculatorScreen extends StatefulWidget {
 
 class _CalculatorScreenState extends State<CalculatorScreen> {
   String expression;
+  double result;
 
   @override
   Widget build(BuildContext context) {
@@ -32,17 +35,42 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
   _resultArea() {
     return Text(
-      '4',
+      result == null ? '' : result.toString(),
       style: TextStyle(
           color: customWhiteColor, fontWeight: FontWeight.bold, fontSize: 50),
     );
   }
 
   _expressionArea() {
-    return Text(
-      '4 + 30',
-      style: TextStyle(
-          color: customWhiteColor, fontWeight: FontWeight.bold, fontSize: 25),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        Flexible(
+          child: Text(
+            expression ?? '',
+            style: TextStyle(
+                color: customWhiteColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 30),
+          ),
+        ),
+        SizedBox(width: 20),
+        IconButton(
+          icon: Icon(
+            Icons.backspace,
+            size: 35,
+            color: customRedColor,
+          ),
+          onPressed: () {
+            if (expression != null && expression.length > 0) {
+              setState(() {
+                expression = expression.substring(0, expression.length - 1);
+              });
+            }
+          },
+        ),
+
+      ],
     );
   }
 
@@ -70,10 +98,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      _whiteButton(text: 'AC', onPressed: () {}),
-                      _whiteButton(text: '%', onPressed: () {}),
-                      _whiteButton(text: '/', onPressed: () {}),
-                      _whiteButton(text: 'X', onPressed: () {}),
+                      _allClearButton(),
+                      _whiteButton(text: '%'),
+                      _whiteButton(text: '/'),
+                      _whiteButton(text: '*'),
                     ],
                   ),
 
@@ -83,10 +111,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      _blackButton(text: '1', onPressed: () {}),
-                      _blackButton(text: '2', onPressed: () {}),
-                      _blackButton(text: '3', onPressed: () {}),
-                      _whiteButton(text: '+', onPressed: () {}),
+                      _blackButton(text: '1'),
+                      _blackButton(text: '2'),
+                      _blackButton(text: '3'),
+                      _whiteButton(text: '+'),
                     ],
                   ),
 
@@ -96,15 +124,16 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      _blackButton(text: '4', onPressed: () {}),
-                      _blackButton(text: '5', onPressed: () {}),
-                      _blackButton(text: '6', onPressed: () {}),
-                      _whiteButton(text: '-', onPressed: () {}),
+                      _blackButton(text: '4'),
+                      _blackButton(text: '5'),
+                      _blackButton(text: '6'),
+                      _whiteButton(text: '-'),
                     ],
                   ),
                 ],
               ),
             ),
+
             ///
             /// Final two rows
             ///
@@ -117,28 +146,28 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      _blackButton(text: '7', onPressed: () {}),
-                      _whiteButton(text: '+|-', onPressed: () {}),
+                      _blackButton(text: '7'),
+                      _whiteButton(text: '+|-'),
                     ],
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      _blackButton(text: '7', onPressed: () {}),
-                      _blackButton(text: '8', onPressed: () {}),
+                      _blackButton(text: '8'),
+                      _blackButton(text: '0'),
                     ],
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      _blackButton(text: '7', onPressed: () {}),
-                      _whiteButton(text: '.', onPressed: () {}),
+                      _blackButton(text: '9'),
+                      _whiteButton(text: '.'),
                     ],
                   ),
 
                   ///
                   /// Green '=' button
-                  _greenStretchButton(onPressed: () {})
+                  _greenStretchButton()
                 ],
               ),
             )
@@ -148,22 +177,25 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     );
   }
 
-  _greenStretchButton({text = '=', onPressed}) {
+  _greenStretchButton() {
     return Container(
       width: 70,
       margin: EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(color: customGreenColor, borderRadius: BorderRadius.circular(40)),
+      decoration: BoxDecoration(
+          color: customGreenColor, borderRadius: BorderRadius.circular(40)),
       child: Center(
         child: Text(
-          text,
+          '=',
           style: TextStyle(
-              color: customWhiteColor, fontSize: 20, fontWeight: FontWeight.bold),
+              color: customWhiteColor,
+              fontSize: 20,
+              fontWeight: FontWeight.bold),
         ),
       ),
     );
   }
 
-  _whiteButton({text, onPressed}) {
+  _whiteButton({text}) {
     return Container(
       width: 70,
       height: 70,
@@ -175,7 +207,32 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         ),
         color: Colors.white,
         shape: CircleBorder(),
-        onPressed: onPressed,
+        onPressed: () {
+          setState(() {
+            expression = '$expression$text';
+          });
+        },
+      ),
+    );
+  }
+
+  _allClearButton() {
+    return Container(
+      width: 70,
+      height: 70,
+      child: MaterialButton(
+        child: Text(
+          'AC',
+          style: TextStyle(
+              color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        color: Colors.white,
+        shape: CircleBorder(),
+        onPressed: () {
+          setState(() {
+            expression = '';
+          });
+        },
       ),
     );
   }
@@ -192,7 +249,16 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         ),
         color: customLightGreyColor,
         shape: CircleBorder(),
-        onPressed: onPressed,
+        onPressed: () {
+          setState(() {
+            if (expression != null) {
+              expression = '$expression$text';
+            } else {
+              expression = text;
+            }
+            print(expression);
+          });
+        },
       ),
     );
   }
