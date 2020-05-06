@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gdgsession2/constants/colors.dart';
 import 'package:gdgsession2/helpers/calculator-brain.dart';
 import 'package:gdgsession2/screens/calculator-screen.dart';
 
@@ -24,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black26,
+      backgroundColor: customLightGreyColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -36,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 120,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white,
+                color: customWhiteColor,
               ),
               child: Center(
                 child: Column(
@@ -75,7 +76,7 @@ class _SplashScreenState extends State<SplashScreen> {
   _customSign(String text) {
     return Text(
       text,
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: customDarkGreyColor),
     );
   }
 }
