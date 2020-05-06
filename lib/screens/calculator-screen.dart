@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gdgsession2/constants/colors.dart';
+import 'package:gdgsession2/helpers/calculator-brain.dart';
 
 class CalculatorScreen extends StatefulWidget {
   @override
@@ -178,18 +179,26 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   }
 
   _greenStretchButton() {
-    return Container(
-      width: 70,
-      margin: EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-          color: customGreenColor, borderRadius: BorderRadius.circular(40)),
-      child: Center(
-        child: Text(
-          '=',
-          style: TextStyle(
-              color: customWhiteColor,
-              fontSize: 20,
-              fontWeight: FontWeight.bold),
+    return GestureDetector(
+      onTap: (){
+        final resultVal = CalculatorBrain.evaluateExpression(expression);
+        setState(() {
+          result = resultVal;
+        });
+      },
+      child: Container(
+        width: 70,
+        margin: EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+            color: customGreenColor, borderRadius: BorderRadius.circular(40)),
+        child: Center(
+          child: Text(
+            '=',
+            style: TextStyle(
+                color: customWhiteColor,
+                fontSize: 20,
+                fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );
@@ -231,6 +240,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         onPressed: () {
           setState(() {
             expression = '';
+            result = null;
           });
         },
       ),

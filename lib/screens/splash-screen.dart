@@ -1,7 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gdgsession2/helpers/calculator-brain.dart';
+import 'package:gdgsession2/screens/calculator-screen.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    _waitAndNavigate();
+    super.initState();
+  }
+
+  _waitAndNavigate() async {
+    await Future.delayed(Duration(seconds: 2));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => CalculatorScreen()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
